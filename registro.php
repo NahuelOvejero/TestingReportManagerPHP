@@ -1,3 +1,7 @@
+<?php
+session_start();
+?>
+
 <html>
 
 <head>
@@ -64,7 +68,7 @@
 			<p class="text-center">Repita Contraseña</p>
 			<input type="password" id="pass2" name="verificacion" placeholder="Repita Contraseña"> <br>
 			<p class="text-center">Tipo de usuario</p>
-			<select name="rol">
+			<select name="rol" onchange='filtrar()'>
 				<option value="1"> Lider QA </option>
 				<option value="2"> Requerimiento </option>
 				<option value="3"> Tester Analista </option>

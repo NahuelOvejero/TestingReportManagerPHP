@@ -70,7 +70,7 @@ if(isset($_SESSION['rol']))
 											<SELECT name="prioridad" class="btnfix">
 												<option value="Baja">Baja</option>
 												<option value="Media" selected>Media</option>
-												<option value="Alta">Alata</option>
+												<option value="Alta">Alta</option>
 											</SELECT>
 
 											<br>
@@ -93,6 +93,9 @@ if(isset($_SESSION['rol']))
 							'
 
 							;
+					if(isset($_GET['success']) && $_GET['success']==false){
+						echo '<span>No se pudo insertar el requerimiento</span>';
+					}
 				}
 
 

@@ -10,6 +10,13 @@ if(isset($_SESSION['rol']))
 
 <html>
 <head>
+<script>
+	function filtrar(){
+		var selectBox = document.getElementById("filter");
+		var selectedValue = selectBox.options[selectBox.selectedIndex].value;
+		window.location='agregarPersonal.php?filter='+selectedValue;
+	}
+</script>
 <title>Bienvenido - Testing Tool</title>
 <meta charset="utf-8">
 <link rel="stylesheet" type="text/css" href="estilos/bootstrap.css">
@@ -55,7 +62,8 @@ if(isset($_SESSION['rol']))
 
 
 					$IdProyectoAcutal = 0;
-
+				
+					
 					$consulta= 'SELECT * FROM proyecto order by IdProyecto desc';
 			
 					if($result = $mysqli->query($consulta))	{
@@ -72,10 +80,12 @@ if(isset($_SESSION['rol']))
 
 
 					/////// DATOS DEL PROYECTO
-
+					
+					
 					$consulta = 'SELECT COUNT(*) as "total" FROM `usuario` 
 					WHERE IdUser NOT IN (SELECT IdUser FROM asignacion WHERE IdProyecto = '. $IdProyectoAcutal.')';
-
+				
+						
 					if($result =  $mysqli->query($consulta)){
 						  if ($obj = $result->fetch_object()) {
 						  	$registros = $obj->total;
@@ -100,26 +110,73 @@ if(isset($_SESSION['rol']))
 						$rol = $_SESSION['busqueda'];
 
 					
-
+					
 
 					$consulta= 'SELECT * FROM `usuario` WHERE IdRol  IN (' . $rol .') && IdUser NOT IN (SELECT IdUser FROM asignacion WHERE IdProyecto =' . $IdProyectoAcutal.')  LIMIT '. $offset .','. $cantidad;
-			
+					if(isset($_GET['filter']) && $_GET['filter']!=0)
+						{
+							$consulta= 'SELECT * FROM `usuario` WHERE  IdRol  =' . $_GET['filter'] .' && IdUser NOT IN (SELECT IdUser FROM asignacion WHERE IdProyecto =' . $IdProyectoAcutal.')  LIMIT '. $offset .','. $cantidad;
+							
+						}
 					if($result = $mysqli->query($consulta))	{
-
+						
 						$rol = 'Sin asignar';
-
+						
 						  	echo '<div class="alineador">
 									<div class="centro">';
-
+							if(isset($_GET['filter'])&& $_GET['filter']!=0){
+								if($_GET['filter']==1)
+									echo '<div class="form-group btnfix">
+									<SELECT onChange="filtrar()" id="filter">						
+									<option value=0> -- ningun rol en especifico -- </option>
+										<OPTION value=1 selected ">lider</OPTION>
+										<OPTION value=2 ">requerimiento</OPTION>
+										<OPTION value=3 ">analista</OPTION>
+										<OPTION value=4 ">developer</OPTION>
+									</SELECT>
+								</div>';
+							  else if($_GET['filter']==2)
+								echo '<div class="form-group btnfix">
+								<SELECT onChange="filtrar()" id="filter">						
+								<option value=0> -- ningun rol en especifico -- </option>
+									<OPTION value=1  ">lider</OPTION>
+									<OPTION value=2 selected ">requerimiento</OPTION>
+									<OPTION value=3 ">analista</OPTION>
+									<OPTION value=4 ">developer</OPTION>
+								</SELECT>
+								</div>';
+							else if($_GET['filter']==3)
+								echo '<div class="form-group btnfix">
+								<SELECT onChange="filtrar()" id="filter">						
+								<option value=0> -- ningun rol en especifico -- </option>
+									<OPTION value=1  ">lider</OPTION>
+									<OPTION value=2  ">requerimiento</OPTION>
+									<OPTION value=3 selected ">analista</OPTION>
+									<OPTION value=4 ">developer</OPTION>
+								</SELECT>
+							</div>';
+							else
 							echo '<div class="form-group btnfix">
-	       								<SELECT>
-	       									<OPTION value=1>lider</OPTION>
-	       									<OPTION value=2>requerimiento</OPTION>
-	       									<OPTION value=3>analista</OPTION>
-	       									<OPTION value=4>developer</OPTION>
-	       								 </SELECT>
-       								  </div>';
-
+							<SELECT onChange="filtrar()" id="filter">						
+							<option value=0> -- ningun rol en especifico -- </option>
+								<OPTION value=1  ">lider</OPTION>
+								<OPTION value=2  ">requerimiento</OPTION>
+								<OPTION value=3 ">analista</OPTION>
+								<OPTION value=4 selected ">developer</OPTION>
+							</SELECT>
+						</div>';
+							}
+							else{
+								echo '<div class="form-group btnfix">
+								<SELECT onChange="filtrar()" id="filter">						
+								<option value=0> -- ningun rol en especifico -- </option>
+									<OPTION value=1 ">lider</OPTION>
+									<OPTION value=2 ">requerimiento</OPTION>
+									<OPTION value=3 ">analista</OPTION>
+									<OPTION value=4 ">developer</OPTION>
+								 </SELECT>
+							  </div>';
+							}
 
 							echo '<FORM METHOD="POST" action="relacionPersonal.php">';
 
