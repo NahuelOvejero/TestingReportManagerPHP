@@ -1,0 +1,32 @@
+.alineador {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.centro {
+  max-width: 50%;
+  margin-top: 5%;
+}
+
+.error{
+	color:red !important;
+}
+
+
+form{
+	background-color: #ECECEA;
+	padding: 40px 80px 40px 80px;
+	border: 2px #D9853B solid;
+	border-radius: 25px;
+
+}
+
+input[type="submit"]{
+	margin-left: 50px;
+	color: #D9853B;
+}
+
+p{
+	font-weight: bold;
+}

@@ -1,0 +1,4 @@
+#558C89 Azul  
+#74AFAD Celeste
+#D9853B Naranja
+#ECECEA Gris

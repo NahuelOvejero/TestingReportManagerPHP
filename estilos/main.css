@@ -1,0 +1,24 @@
+
+input[type="text"]{
+  margin-left: 80px;
+  width: 220px;
+}
+
+input[type="date"]{
+  margin-left: 120px;
+}
+
+
+input[type="submit"]{
+  margin-left: 130px;
+}
+
+textarea{
+ height: 142px; width: 378px;
+ resize: none;
+}
+
+p{
+  color:#ccc;
+  font-weight: bold;
+}
