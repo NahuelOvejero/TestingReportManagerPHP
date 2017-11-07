@@ -7,13 +7,20 @@
 						<div class="vertical-menu">
 						  <a href="inicio.php">Inicio</a>';
 
-						  if($_SESSION['rol'] == 'lider') echo '<a href="nuevoProyecto.php">Nuevo Proyecto</a>
+						if($_SESSION['rol'] == 'lider') echo '<a href="nuevoProyecto.php">Nuevo Proyecto</a>
   						  <a href="proyectoActual.php">Proyecto Actual</a>
 						   <a href="agregarPersonal.php">Agregar Personal</a>';
 
 						 if($_SESSION['rol'] == 'requerimiento') echo '
-						   <a href="proyectoActualReq.php">Proyecto Actual</a>';
-						  
+							 <a href="proyectoActualReq.php">Proyecto Actual</a>';
+							 
+						 if($_SESSION['rol'] == 'requerimiento') echo '
+							 <a href="agregarRequerimiento.php">Cargar Requerimiento</a>';
+							 
+						if($_SESSION['rol'] == 'requerimiento') echo '
+						   <a href="RequerimientosActuales.php">Requerimientos Actuales</a>';
+							
+							 
 	
 	echo		'</div>
 					</div>

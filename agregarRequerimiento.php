@@ -54,8 +54,21 @@ if(isset($_SESSION['rol']))
 
 								
 						echo    '<div class="alineador">
-									<div class="centro">
-									<h1 class="text-center titulo"> Nuevo Requerimiento </h1>
+									<div class="centro">';
+
+									if(isset($_GET['success'])){
+										if($_GET['success'] != 'true')
+											echo '<div class="alert alert-warning">
+												  <strong>Error : Verifique la conexion a la base.</strong>
+												  </div>';
+										else
+											echo '<div class="alert alert-success">
+												  <strong> Exito al agregar nuevo Requerimiento!
+												  </div>';
+									}
+
+
+							echo '<h1 class="text-center titulo"> Nuevo Requerimiento </h1>
 
 										<div class="maomeno">
 										<form method="post" action="newReq.php" >

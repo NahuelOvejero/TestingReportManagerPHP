@@ -16,12 +16,13 @@ if(isset($_POST['enviar']))
     $version = 0;
     
         
-    $consulta= 'SELECT version,subversion from version where IdProyecto = (SELECT IdProyecto FROM proyecto order by IdProyecto desc LIMIT 1) ';
+    $consulta= 'SELECT version,subversion,IdProyecto from version where IdProyecto = (SELECT IdProyecto FROM proyecto order by IdProyecto desc LIMIT 1) ';
 
     if($result = $mysqli->query($consulta))	{
 
             if ($obj = $result->fetch_object()) {
                     $version=$obj->version.'.'.$obj->subversion;
+                    $id = $obj->IdProyecto;
             }	
             else{
                 echo $mysqli->error;
@@ -29,7 +30,7 @@ if(isset($_POST['enviar']))
 
         $result->close();
     }
-    $consulta="INSERT INTO requerimientos values($id,'$nombre','$modulo','$fecha','$prioridad','$estado',$version);";
+    $consulta="INSERT INTO requerimientos values(0,$id,'$nombre','$modulo','$fecha','$prioridad','$estado',$version);";
     $mysqli->autocommit(true);
     if($result=$mysqli->query($consulta)){
         
