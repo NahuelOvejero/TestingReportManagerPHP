@@ -107,16 +107,17 @@ if(isset($_SESSION['rol']))
 
     					echo '<div class="der">';
 
-       						echo '<h3 class="text-center titulo"> Requerimientos de esta Version : </h3>';
+						echo '<h3 class="text-center titulo"> Trabajadores : </h3> <ul class="list-group">';
+						
+						while ($req = $result->fetch_object()) {
+									
+									echo '<li class="list-group-item text-center">'. $req->nombre . ' - ( '. strtoupper($req->modulo) . ' )
 
-       						echo '<ul class="list-group">';
+									<a href="requerimientodatos.php?id='. $req->nombre.'" ><button type="button" class="btn btn-warning">Datos</button> </a>  </li>';
 
-       							
-       						
+							}	
 
-    						}	
-
-    						echo '</ul>';
+							echo '</ul>';
 
     					echo '</div>';
 
@@ -126,6 +127,7 @@ if(isset($_SESSION['rol']))
 
 					echo '</div>
 					</div>';
+						}
 
 		?>
 

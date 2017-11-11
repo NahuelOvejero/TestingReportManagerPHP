@@ -1,10 +1,33 @@
 <?php
 
+
 session_start();	
 
 
 if(isset($_SESSION['rol']))
 	if($_SESSION['rol']!='requerimiento') header('Location:inicio.php?auth=false');
+
+if(isset($_POST['enviar'])){
+	require './dbManager/connectdb.php';
+
+
+	
+	$hoy = Date('y-m-d');
+
+	$consulta = 'INSERT INTO reqanalista 
+			VALUES (' . $_POST['analista'] ." , '".  $_GET['req'] ."','". $hoy ."','". $_POST['finalizacion'] ."')";
+
+	echo $consulta;
+
+	if($mysqli->query($consulta)){
+		header('Location:RequerimientosActuales.php?success=true');
+	}
+	else{
+		header('Location:RequerimientosActuales.php?success=false');
+	}
+
+	
+}
 
 ?>
 
@@ -124,8 +147,52 @@ if(isset($_SESSION['rol']))
                     }
 
                     echo '				
-                    <h1 class="text-center titulo">Asignar :</h1>';
+					<h1 class="text-center titulo">Asignar Requerimiento a Tester Analista:</h1><br>';
+					
+					
+					echo '<form action = "requerimientodatos.php?req='. $_GET['req'] .'" method=POST> 
 
+					
+                  			  <h1 class="text-center titulo"> Tester a Cargo :</h1>
+
+					
+
+								<select name="analista" style="
+								margin-left: 210px;" required>';
+
+					$consulta = '
+						SELECT * FROM usuario WHERE IdUser IN 
+							(SELECT IdUser FROM asignacion WHERE IdProyecto IN 
+								(SELECT IdProyecto FROM proyecto order by IdProyecto desc)) AND IdRol = 3';					;
+
+					if($result = $mysqli->query($consulta)){
+						while($obj = $result->fetch_object()){
+							
+							echo '<option value='.$obj->IdUser.'>
+								'. $obj->mail .'
+							</option>';
+						}
+					}
+					else{
+						echo '<option> Error al conectarse a la bd </option>';
+					}
+
+								
+					echo ' </select>
+
+							<br>
+							
+							<h1 class="text-center titulo">Fecha Finalizacion :</h1>	
+							<br>					
+							<input type="date" name="finalizacion" required>							
+							<input type="submit" name="enviar">
+							<br>
+							
+
+						  </form>
+
+
+					</form>';
 
                     /*Filtrar todos los TESTER ANALISTAS y asignar una fecha de caducidad 
                     Tester Analista para que este dise�e los casos de prueba relacionados 

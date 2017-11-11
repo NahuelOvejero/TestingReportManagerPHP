@@ -66,7 +66,7 @@ if(isset($_SESSION['rol']))
 
 
 
-					echo '<h1 class="text-center titulo"> Requerimientos Actuales </h1>
+					echo '<h1 class="text-center titulo"> Requerimientos Sin Asignar </h1>
 							  <div class="alineador">
 							 <div class="centro">
                                         <div class="maomeno">';
@@ -75,7 +75,10 @@ if(isset($_SESSION['rol']))
 
                     require './dbManager/connectdb.php';
 
-                    $consulta = 'SELECT * FROM `requerimientos` WHERE version = (SELECT version FROM version WHERE IdProyecto = (SELECT IdProyecto FROM proyecto order by IdProyecto desc LIMIT 1))';
+                    $consulta = 'SELECT * FROM `requerimientos` 
+					WHERE version = (SELECT version FROM version WHERE IdProyecto = 
+									(SELECT IdProyecto FROM proyecto order by IdProyecto desc LIMIT 1))
+					AND nombre NOT IN (SELECT requerimiento FROM reqanalista)';
 
 
                     if($result = $mysqli->query($consulta))
@@ -84,7 +87,7 @@ if(isset($_SESSION['rol']))
                         echo '<table class="table">';
                         echo '<th>Nombre</th>
                         <th>Modulo</th>
-                        <th>Inicio</th>
+                        <th>Fecha</th>
                         <th>Prioridad</th>
 						<th>Estado</th>
 						<th>Asignado A:</th>

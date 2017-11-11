@@ -51,6 +51,30 @@ session_start();
 								echo '<h1 class="text-center titulo"> No posee permisos para acceder a esa area </h1>';
 							}
 
+
+
+							if($_SESSION['rol']=='requerimiento'){
+								require './dbManager/connectdb.php';
+								echo '<h1 class="text-center titulo"> Mis Requerimientos Creados: </h1>';
+
+								$consulta= 'SELECT * FROM requerimientos WHERE IdProyecto = 
+								(SELECT IdProyecto FROM proyecto order by IdProyecto desc LIMIT 1)
+								AND IdUser ='. $_SESSION['id'];
+								
+								echo '<h3 class="text-center titulo"> Requerimientos : </h3> <ul class="list-group">';
+								if($result = $mysqli->query($consulta))
+								while ($req = $result->fetch_object()) {
+										echo '<li class="list-group-item text-center">'. $req->nombre . ' - ( '. strtoupper($req->modulo) . ' )
+
+										<a href="requerimientodatos.php?req='. $req->nombre.'" ><button type="button" class="btn btn-warning">Datos</button> </a>  </li>';
+
+								}	
+
+								echo '</ul>';
+
+							}
+
+
 					echo'
 							</div>
 						</div>

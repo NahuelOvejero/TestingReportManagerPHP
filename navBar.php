@@ -19,6 +19,9 @@
 							 
 						if($_SESSION['rol'] == 'requerimiento') echo '
 						   <a href="RequerimientosActuales.php">Requerimientos Actuales</a>';
+
+						if($_SESSION['rol'] == 'requerimiento') echo '
+						   <a href="requerimientosSinAsignar.php">Requerimientos Sin Asignar</a>';
 							
 							 
 	
