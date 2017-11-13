@@ -87,6 +87,23 @@ if(isset($_SESSION['rol']))
 											</SELECT>
 
 											<br>
+											
+											<p class="text-center">descripcion</p>
+											<textarea name="desc">
+											</textarea>
+
+											<br>
+											<p class="text-center">Actor</p>
+											<input class="text-center" type="text" name="actor" placeholder="actor" required> <br>
+											
+											<p class="text-center">Precondicion</p>
+											<input class="text-center" type="text" name="pre" placeholder="Pre" required> <br>
+											
+											<p class="text-center">Postcondicion</p>
+											<input class="text-center" type="text" name="post" placeholder="Post" required>	
+											<p class="text-center">Disparador/Trigger</p>
+											<input class="text-center" type="text" name="trigger" placeholder="Trigger" required> <br>
+
 											<br>
 											<input type="submit" value="Cargar Requerimiento" class=" reqFix btn  btn-fix btn-warning" name="enviar"> <br>
 

@@ -1,12 +1,31 @@
 <?php
 
+
 session_start();	
 
 
 if(isset($_SESSION['rol']))
 	if($_SESSION['rol']!='requerimiento') header('Location:inicio.php?auth=false');
 
+if(isset($_POST['enviar'])){
+	require './dbManager/connectdb.php';
+	
+	$hoy = Date('y-m-d');
 
+	$consulta = 'INSERT INTO reqanalista 
+			VALUES (' . $_POST['analista'] ." , '".  $_GET['req'] ."','". $hoy ."','". $_POST['finalizacion'] ."')";
+
+	echo $consulta;
+
+	if($mysqli->query($consulta)){
+		header('Location:RequerimientosActuales.php?success=true');
+	}
+	else{
+		header('Location:RequerimientosActuales.php?success=false');
+	}
+
+	
+}
 
 ?>
 
@@ -47,26 +66,14 @@ if(isset($_SESSION['rol']))
 
 				if(isset($_SESSION['rol'])){
 
-					include 'navBar.php';
+                    include 'navBar.php';
+                    
 
 
 
-					echo '<div class="container-fluid contenido">';
-					
-					if(isset($_GET['success'])){
-						if($_GET['success'] != 'true')
-							echo '<div class="alert alert-warning">
-								  <strong>Error : Verifique la conexion a la base.</strong>
-								  </div>';
-						else
-							echo '<div class="alert alert-success">
-								  <strong> Se asigno con exito el requerimiento.
-								  </div>';
-					}
+					echo '<div class="container-fluid contenido">
 
-
-
-					echo '<h1 class="text-center titulo"> Requerimientos Actuales </h1>
+							 <h1 class="text-center titulo"> Requerimiento : '.  $_GET['req'] . ' </h1>
 							  <div class="alineador">
 							 <div class="centro">
                                         <div class="maomeno">';
@@ -75,24 +82,36 @@ if(isset($_SESSION['rol']))
 
                     require './dbManager/connectdb.php';
 
-                    $consulta = 'SELECT * FROM `requerimientos` WHERE version = (SELECT version FROM version WHERE IdProyecto = (SELECT IdProyecto FROM proyecto order by IdProyecto desc LIMIT 1))';
 
+                    //buscar procedimiento del $_GET 
+
+                    $consulta = 'SELECT * 
+                                FROM `requerimientos` 
+                                WHERE version = (SELECT version 
+                                                FROM version WHERE IdProyecto = (SELECT IdProyecto 
+                                                                                    FROM proyecto order by IdProyecto desc LIMIT 1))
+                                        && nombre = "' . $_GET['req'] .'"';
 
                     if($result = $mysqli->query($consulta))
                     {
 
+                        if($mysqli->affected_rows == 0) {
+
+                            echo 'No se puede encontrar el proyecto con nombre: ' . $_GET['req'];
+
+                        }
+
                         echo '<table class="table">';
                         echo '<th>Nombre</th>
                         <th>Modulo</th>
-                        <th>Inicio</th>
+                        <th>Fecha</th>
                         <th>Prioridad</th>
 						<th>Estado</th>
-						<th>Asignado A:</th>
 						<th>Detalle</th>
-						<th>Casos de Uso</th>
 						';
 
                         while($obj = $result->fetch_object()){
+
 
 							if($obj->estado == 'Incompleto')							
 								echo '<tr class="bg-danger">';
@@ -107,33 +126,9 @@ if(isset($_SESSION['rol']))
                             <td> $obj->modulo</td>
                             <td> $obj->fecha</td>
                             <td> $obj->prioridad</td>
-							<td> $obj->estado</td>";
-
-							$asignado = "SELECT mail FROM usuario WHERE IdUser = 
-										(SELECT IdUser FROM reqanalista WHERE requerimiento = '". $obj->nombre ."')";
-
-
-							if($exito = $mysqli->query($asignado)){
-								if($mysqli->affected_rows == 0){
-									echo '<td> Sin Asignar </td>';
-								}	
-								else{
-									if($user = $exito->fetch_object())
-										echo '<td>'. $user->mail .' </td>';
-									else
-									echo '<td>'. $user->mail .' </td>';
-								}
-							}
-							else
-							{
-								echo '<td> Sin Datos </td>';
-							}
-
-							echo "<td>" . '<a href="requerimientodatos.php?req='. $obj->nombre .'" ><button type="button" class="btn">Datos</button> </a></td>
-
-							<td><a href="requerimientocasos.php?req='. $obj->nombre .'" ><button type="button" class="btn">Casos</button> </a></td>
-							
-							</tr>                            
+							<td> $obj->estado</td>
+							<td>" . '<a href="requerimientodatos.php?req='. $obj->nombre.'" ><button type="button" class="btn">Datos</button> </a></td>
+                            </tr>                            
                             ';
 
 
@@ -149,7 +144,37 @@ if(isset($_SESSION['rol']))
 
                     }
 
-					echo '					</div>
+                    echo '				
+					<h1 class="text-center titulo">Agregar C/U:</h1><br>';
+					
+					
+					echo '<form action = "requerimientocasos.php?req='. $_GET['req'] .'" method=POST> 
+
+					
+                  			  <h1 class="text-center titulo"> Tester a Cargo :</h1>
+
+				
+							<br>
+							
+							<h1 class="text-center titulo">Fecha Finalizacion :</h1>	
+							<br>					
+							<input type="date" name="finalizacion" required>							
+							<input type="submit" name="enviar">
+							<br>
+							
+
+						  </form>
+
+
+					</form>';
+
+                    /*Filtrar todos los TESTER ANALISTAS y asignar una fecha de caducidad 
+                    Tester Analista para que este dise�e los casos de prueba relacionados 
+                    a los diferentes escenarios del requerimiento.
+                    La asignaci�n tendra una fecha estimativa de finalizaci�n. */
+
+
+                     echo '</div>
 
 
 									</div>

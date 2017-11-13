@@ -14,9 +14,15 @@ if(isset($_POST['enviar']))
     $fecha=date('y-m-d');
     $estado='Incompleto';
     $version = 0;
-    
+
+    $desc = $_POST['desc'];
+    $actor = $_POST['actor'];
+    $pre = $_POST['pre'];
+    $post = $_POST['post'];
+    $trig = $_POST['trigger'];
         
     $consulta= 'SELECT version,subversion,IdProyecto from version where IdProyecto = (SELECT IdProyecto FROM proyecto order by IdProyecto desc LIMIT 1) ';
+
 
     if($result = $mysqli->query($consulta))	{
 
@@ -30,9 +36,10 @@ if(isset($_POST['enviar']))
 
         $result->close();
     }
-    $consulta="INSERT INTO requerimientos values(0,$id,'$nombre','$modulo','$fecha','$prioridad','$estado',$version);";
+    $user = $_SESSION['id'];
+    $cons="INSERT INTO requerimientos values(0,$id,$user,'$nombre','$modulo','$desc','$actor','$pre','$post','$trig','$fecha','$prioridad','$estado',$version);";
     $mysqli->autocommit(true);
-    if($result=$mysqli->query($consulta)){
+    if($mysqli->query($cons)){
         
         header('location:agregarRequerimiento.php?success=true');
     }

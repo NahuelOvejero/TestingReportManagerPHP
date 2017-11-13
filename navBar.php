@@ -11,17 +11,16 @@
   						  <a href="proyectoActual.php">Proyecto Actual</a>
 						   <a href="agregarPersonal.php">Agregar Personal</a>';
 
-						 if($_SESSION['rol'] == 'requerimiento') echo '
-							 <a href="proyectoActualReq.php">Proyecto Actual</a>';
-							 
-						 if($_SESSION['rol'] == 'requerimiento') echo '
-							 <a href="agregarRequerimiento.php">Cargar Requerimiento</a>';
-							 
-						if($_SESSION['rol'] == 'requerimiento') echo '
-						   <a href="RequerimientosActuales.php">Requerimientos Actuales</a>';
-
-						if($_SESSION['rol'] == 'requerimiento') echo '
+						   if($_SESSION['rol'] == 'requerimiento')
+									echo '
+							<a href="proyectoActualReq.php">Proyecto Actual</a>
+							<a href="agregarRequerimiento.php">Cargar Requerimiento</a>
+						   <a href="RequerimientosActuales.php">Requerimientos Actuales</a>
 						   <a href="requerimientosSinAsignar.php">Requerimientos Sin Asignar</a>';
+
+
+						if($_SESSION['rol'] == 'analista') 
+						echo '<a href="#"> Algo </a>';
 							
 							 
 	

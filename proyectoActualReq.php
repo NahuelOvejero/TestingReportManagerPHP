@@ -107,7 +107,7 @@ if(isset($_SESSION['rol']))
 
     					echo '<div class="der">';
 
-						echo '<h3 class="text-center titulo"> Trabajadores : </h3> <ul class="list-group">';
+						echo '<h3 class="text-center titulo"> Requerimientos	 : </h3> <ul class="list-group">';
 						
 						while ($req = $result->fetch_object()) {
 									

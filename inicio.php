@@ -39,6 +39,9 @@ session_start();
 
 			if(isset($_SESSION['rol']))
 				include 'navBar.php';
+			else{
+				header('Location:logeo.php');
+			}
 				
 				if(isset($_GET['new']))
 					echo '<div class="container-fluid contenido">
@@ -61,12 +64,13 @@ session_start();
 								(SELECT IdProyecto FROM proyecto order by IdProyecto desc LIMIT 1)
 								AND IdUser ='. $_SESSION['id'];
 								
-								echo '<h3 class="text-center titulo"> Requerimientos : </h3> <ul class="list-group">';
+								echo '<h3 class="text-center titulo"> Requerimientos : </h3> 					
+								<ul>';
 								if($result = $mysqli->query($consulta))
 								while ($req = $result->fetch_object()) {
-										echo '<li class="list-group-item text-center">'. $req->nombre . ' - ( '. strtoupper($req->modulo) . ' )
+										echo '<li class="text-center">'. $req->nombre . ' - ( '. strtoupper($req->modulo) . ' )
 
-										<a href="requerimientodatos.php?req='. $req->nombre.'" ><button type="button" class="btn btn-warning">Datos</button> </a>  </li>';
+										<a href="requerimientodatos.php?req='. $req->nombre.'" ><button type="button" class="btn btn-warning">Datos</button> </a>  </li> <br>';
 
 								}	
 
