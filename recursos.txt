@@ -1,0 +1,58 @@
+Requerimientos Funcionales
+
+-Gestión de Requerimientos, Casos de prueba y ejecución de pruebas.
+-Reportes.
+
+LIDER-
+
+Generar  release. 
+REPORTS estado de los requerimientos, casos de prueba, ejecución de casos de prueba y defectos.
+Un release es la entrega de una version x del software que se esta desarrollando bajo un determinado Proyecto.
+Una vez que existe consenso sobre si la version actual del Sistema esta apta para liberarse,
+ entonces el lider QA libera el release y se empieza a trabajar en una nueva versión.
+
+
+REQUERIMIENTO
+Gestionar Requerimientos validados y verificados.
+ESPECIFICACION DE CASOS DE USOS.
+
+ROL TESTER- DISEÑA Y ESPECIFICALOS CASOS DE PRUEBA.
+
+ROL TESTER-DEVELOPER
+	Ejecuta casos de prueba y reporta defectos
+
+
+El Sistema debe gestionar y hacer un seguimiento desde que se especifica un requerimiento hasta que se realizan,
+ejecutan y reportan las pruebas del mismo. 
+
+Cada requerimiento es asignado a un Tester Analista para que este diseñe los casos de prueba relacionados a los diferentes escenarios del requerimiento.
+La asignación tendra una fecha estimativa de finalización.
+
+El Usuario Tester Analista puede gestionar (crear, borrar, modificar) los casos de prueba de los requerimientos que le han sido asignados.
+
+Cada caso de prueba tiene un nombre,
+ descripción,
+  estado,
+   version,
+    precondicion,
+     tipo de prueba,
+      entradas,
+       salidas esperadas
+
+El Tester Analista es el encargado de asignar los casos de prueba a usuarios Tester Developer para que ellos ejecuten esas pruebas. Además deberán informar de las pruebas con diferencias entre las salidas esperadas y las salidas ejecutadas. Se debera asignar el resultado de la ejecución (exito, falla).
+
+El Tester Developer será el encargado de generar los defectos encontrados.
+
+Todas las asignaciones de trabajo deberán dejar constancia de las fechas en que fueron realizadas.
+
+Un requerimiento puede ser incompleto, exitoso (cuando todas las pruebas han sido exitosas) o defectuoso (cuando al menos tiene un defecto sin reparar.
+
+Un caso de prueba puede ser incompleto (cuando todavia no esta diseñado completamente), asignado (cuando ha sido asignado pero no ejecutado), exitoso (cuando fue ejecutado exitosamente), defectuoso (cuando fue ejecutado y no fue exitoso)
+
+Un caso de prueba ejecutado puede ser pausado (cuando todavía no se puede ejecutar por algún motivo), exitoso (cuando se ejecuto positivamente) o defectuoso (cuando se ejecuto y las salidas obtenidas no fueron las mismas que las esperadas)
+
+Un defecto tiene un descripción, fecha, estado y adjunto.
+
+
+
+Req -> CU

@@ -20,7 +20,7 @@
 
 
 						if($_SESSION['rol'] == 'analista') 
-						echo '<a href="#"> Algo </a>';
+						echo '<a href="misrequerimientos.php"> Mis Requerimientos </a>';
 							
 							 
 	
