@@ -39,7 +39,8 @@ Cada caso de prueba tiene un nombre,
       entradas,
        salidas esperadas
 
-El Tester Analista es el encargado de asignar los casos de prueba a usuarios Tester Developer para que ellos ejecuten esas pruebas. Además deberán informar de las pruebas con diferencias entre las salidas esperadas y las salidas ejecutadas. Se debera asignar el resultado de la ejecución (exito, falla).
+El Tester Analista es el encargado de asignar los casos de prueba a usuarios Tester Developer para que ellos ejecuten esas pruebas. 
+Además deberán informar de las pruebas con diferencias entre las salidas esperadas y las salidas ejecutadas. Se debera asignar el resultado de la ejecución (exito, falla).
 
 El Tester Developer será el encargado de generar los defectos encontrados.
 

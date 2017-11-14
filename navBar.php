@@ -21,6 +21,9 @@
 
 						if($_SESSION['rol'] == 'analista') 
 						echo '<a href="misrequerimientos.php"> Mis Requerimientos </a>';
+
+						if($_SESSION['rol'] == 'developer') 
+						echo '<a href="mispruebas.php"> Mis Pruebas </a>';
 							
 							 
 	

@@ -42,6 +42,15 @@ session_start();
 			else{
 				header('Location:logeo.php');
 			}
+
+			if(isset($_GET['requerimiento']))
+				if($_GET['requerimiento'] == true)
+					echo '<div class="container-fluid contenido">
+					<h1 class="text-center titulo">Caso Prueba Creado exitosamente </h1>';
+				else
+				echo '<div class="container-fluid contenido">
+				<h1 class="text-center titulo">Ocurrio un error creando el caso de prueba </h1>';
+
 				
 				if(isset($_GET['new']))
 					echo '<div class="container-fluid contenido">

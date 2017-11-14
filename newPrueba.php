@@ -8,7 +8,34 @@ if(isset($_SESSION['rol']))
     
 
     if(isset($_POST['enviar'])){
-        //CARGAR PRUEBA
+		require './dbManager/connectdb.php';
+		
+		$getreq = "SELECT * FROM requerimientos WHERE nombre = '" .  $_GET['req'] . "'";
+
+		$IdReq = 0;
+
+		if($res = $mysqli->query($getreq)){
+			if($objetoId = $res->fetch_object()){
+				$IdReq = $objetoId->IdReq;
+			}
+			else{
+				echo $mysqli->error;
+			}
+		}
+
+		
+		$consulta = "INSERT INTO prueba 
+		VALUES( '" .$_POST['nombre'] ."' , '". $_POST['developer'] ."' , '". $_POST['entrada']." '
+		, '" . $_POST['esperado'] . "' , '" . $_POST['tipo'] . "' ,NULL,NULL,NULL,'Sin Probar',".$IdReq.")";
+
+		if($res = $mysqli->query($consulta)){
+			header('Location:inicio.php?requerimiento=true');
+		}
+		else{
+			header('Location:inicio.php?requerimiento=false');
+		}
+
+
     }
 
 ?>
@@ -59,7 +86,7 @@ if(isset($_SESSION['rol']))
 						echo    '<div class="alineador">
 									<div class="centro">
 
-										<form method="post" action="newProyect.php?req='.$_GET['req'].'" >
+										<form method="post" action="newPrueba.php?req='.$_GET['req'].'" >
 											<p class="text-center">Nombre de la Prueba</p>
 											<input class="text-center" type="text" name="nombre" placeholder="Nombre de Prueba" required> <br>
 
@@ -72,11 +99,34 @@ if(isset($_SESSION['rol']))
                                             <br>
                                             
                                             <p class="text-center">Salida Esperada</p>
-                                            <input class="text-center" type="text" name="salida" placeholder="Salida" required> <br>
+                                            <input class="text-center" type="text" name="esperado" placeholder="Salida" required> <br>
                                             
-											<br>
+											<br>';
 
-											<br>
+											require './dbManager/connectdb.php';
+											$consulta = "SELECT * FROM usuario WHERE IdRol = 4 ";
+
+											echo '<p class="text-center">Developer Encargado</p>';
+
+											echo '<select name="developer">';
+
+											if($result = $mysqli->query($consulta)){
+
+												while($obj = $result->fetch_object()){
+													echo '<OPTION value='.$obj->IdUser.'>'.$obj->mail.'</OPTION>';
+												}
+
+												echo '</select> <br>';
+
+											}
+											else{
+												die ('No se pudo contactar con los analistas de la BD');
+											}
+
+
+
+
+											echo '<br>
 											<input type="submit" value="Generar Nueva Prueba" class="btn btn-warning" name="enviar"> <br>
 
 										</form>
