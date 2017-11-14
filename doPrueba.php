@@ -12,8 +12,7 @@ if(isset($_POST['enviar'])){
     
     require './dbManager/connectdb.php';
 
-    $hoy = date('y-d-m');
-   
+    $hoy =  date('y-m-d');
     if($_POST['resultado'] == $_POST['esperado'])
      $consulta = "UPDATE prueba SET observaciones = '".
                  $_POST['observaciones'] ."', resultado = '" . $_POST['resultado'] . "',ultimotest='".$hoy."',
@@ -24,7 +23,7 @@ if(isset($_POST['enviar'])){
         //REDIRIGIR A DEFECTUOSO
 
     if($mysqli->query($consulta)){
-        echo 'Exito';
+        header('Location:mispruebas.php?result=true');
     }
     else{
         echo $mysqli->error;
@@ -91,9 +90,16 @@ if(isset($_POST['enviar'])){
                             echo '<div class="alineador">
                             <div class="centro">
                             
-                            <form action="doPrueba.php?req='. $_GET['req']  .'" method="post">
+                            <form action="doPrueba.php?req='. $_GET['req']  .'" method="post">';
 
-                                
+
+                            
+                                                                        
+                    
+
+
+
+                            echo '                                
                                 <p class="text-center">Entrada:</p>
                             
                                 <input type="text" value="'. $obj->entrada .'" readonly>
@@ -121,12 +127,14 @@ if(isset($_POST['enviar'])){
                             echo $mysqli->error;
                         }
 
-                    }
 
-                    else{
-                        echo $mysqli->error;
-                    }
+                }
                   
+                    
+
+                else{
+                    echo $mysqli->error;
+                }
 
 
 					echo '					</div>

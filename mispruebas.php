@@ -64,6 +64,16 @@ if(isset($_SESSION['developer']))
 								  </div>';
 					}
 
+					if(isset($_GET['result']))
+					if($_GET['result'] != 'true')
+							echo '<div class="alert alert-warning">
+							<strong>Error : Verifique la conexion a la base.</strong>
+							</div>';
+					else
+					  echo '<div class="alert alert-success">
+							<strong	>Exito al cargar resultado de la prueba!
+							</div>';
+
 
 
 					echo '<h1 class="text-center titulo">Mis Pruebas Asignadas:</h1>
@@ -91,6 +101,7 @@ if(isset($_SESSION['developer']))
                         <th>Resultado</th>
 						<th>Ultimo Test</th>
 						<th>Tipo</th>
+						<th>Obs.</th>
 						<th>Prueba</th><tr>
 						';
 
@@ -107,7 +118,8 @@ if(isset($_SESSION['developer']))
                             <td>'. $obj->esperado .' </td>
                             <td>'. $obj->resultado .' </td>
                             <td>'. $obj->ultimotest .' </td>
-                            <td>'. $obj->tipo .' </td>
+							<td>'. $obj->tipo .' </td>
+							<td>'. $obj->observaciones .' </td>
                             <td><a href="doPrueba.php?req='. $obj->nombre .'" ><button type="button" class="btn btn-warning">Ejecutar</button> </a></td>
 							</tr>                            
                             ';
