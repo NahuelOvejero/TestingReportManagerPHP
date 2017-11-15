@@ -113,7 +113,7 @@ if(isset($_SESSION['rol']))
 									
 									echo '<li class="list-group-item text-center">'. $req->nombre . ' - ( '. strtoupper($req->modulo) . ' )
 
-									<a href="requerimientodatos.php?id='. $req->nombre.'" ><button type="button" class="btn btn-warning">Datos</button> </a>  </li>';
+									<a href="requerimientodatos.php?req='. $req->nombre.'" ><button type="button" class="btn btn-warning">Datos</button> </a>  </li>';
 
 							}	
 

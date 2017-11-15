@@ -13,23 +13,29 @@ if(isset($_POST['enviar'])){
     require './dbManager/connectdb.php';
 
     $hoy =  date('y-m-d');
-    if($_POST['resultado'] == $_POST['esperado'])
+    if($_POST['resultado'] == $_POST['esperado']){
      $consulta = "UPDATE prueba SET observaciones = '".
                  $_POST['observaciones'] ."', resultado = '" . $_POST['resultado'] . "',ultimotest='".$hoy."',
-                 estado = 'Aprobado'
+                 estado = 'Exitoso'
                  WHERE nombre ='" . $_GET['req'] . "'";
-    else 
-        header('Location:defecto.php?req='. $_GET['req'] );
-        //REDIRIGIR A DEFECTUOSO
-
-    if($mysqli->query($consulta)){
-        header('Location:mispruebas.php?result=true');
-    }
-    else{
-        echo $mysqli->error;
-    }
                  
+            if($mysqli->query($consulta)){
+                header('Location:mispruebas.php?result=true');
+            }
+            else{
+                echo $mysqli->error;
+            }
+        }
+    else{
+        $consulta = "UPDATE prueba SET resultado='Fallido' WHERE nombre ='". $_GET['req'] ."'";
 
+        $mysqli->query($consulta);
+        
+        header('Location:defecto.php?req='. $_GET['req'] );
+        
+        
+
+    }
 }
 
 
