@@ -25,6 +25,11 @@
 						if($_SESSION['rol'] == 'developer') 
 						echo '<a href="mispruebas.php"> Mis Pruebas </a>';
 							
+
+
+
+						echo '<a href="miperfil.php"> Mi Perfil </a>';
+						
 							 
 	
 	echo		'</div>
