@@ -20,6 +20,8 @@ if(isset($_POST['enviar']))
     $pre = $_POST['pre'];
     $post = $_POST['post'];
     $trig = $_POST['trigger'];
+
+    $fin = $_POST['fin'];
         
     $consulta= 'SELECT version,subversion,IdProyecto from version where IdProyecto = (SELECT IdProyecto FROM proyecto order by IdProyecto desc LIMIT 1) ';
 
@@ -37,7 +39,7 @@ if(isset($_POST['enviar']))
         $result->close();
     }
     $user = $_SESSION['id'];
-    $cons="INSERT INTO requerimientos values(0,$id,$user,'$nombre','$modulo','$desc','$actor','$pre','$post','$trig','$fecha','$prioridad','$estado',$version);";
+    $cons="INSERT INTO requerimientos values(0,$id,$user,'$nombre','$modulo','$desc','$actor','$pre','$post','$trig','$fecha','$fin','$prioridad','$estado',$version);";
     $mysqli->autocommit(true);
     if($mysqli->query($cons)){
         

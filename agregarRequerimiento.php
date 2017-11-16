@@ -98,9 +98,14 @@ if(isset($_SESSION['rol']))
 											
 											<p class="text-center">Precondicion</p>
 											<input class="text-center" type="text" name="pre" placeholder="Pre" required> <br>
-											
+
 											<p class="text-center">Postcondicion</p>
 											<input class="text-center" type="text" name="post" placeholder="Post" required>	
+											
+											
+											<p class="text-center">Fecha Limite</p>
+											<input type="date" name="fin" required> <br>
+
 											<p class="text-center">Disparador/Trigger</p>
 											<input class="text-center" type="text" name="trigger" placeholder="Trigger" required> <br>
 

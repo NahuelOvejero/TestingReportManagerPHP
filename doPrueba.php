@@ -120,7 +120,7 @@ if(isset($_POST['enviar'])){
 
                                 <p class="text-center">Observaciones:</p>                               
                                 
-                                <input type="text" name="observaciones"> <br> <br>
+                                <textarea name="observaciones"> </textarea> <br> <br>
 
                                 <input type="submit" value="Ejecutar" class="btn btn-warning" name="enviar"> <br>
                                 

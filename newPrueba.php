@@ -26,7 +26,7 @@ if(isset($_SESSION['rol']))
 		
 		$consulta = "INSERT INTO prueba 
 		VALUES( '" .$_POST['nombre'] ."' , '". $_POST['developer'] ."' , '". $_POST['entrada']." '
-		, '" . $_POST['esperado'] . "' , '" . $_POST['tipo'] . "' ,NULL,NULL,NULL,'Sin Probar',".$IdReq.")";
+		, '" . $_POST['esperado'] . "' , '" . $_POST['tipo'] . "' ,NULL,NULL,NULL,'Sin Probar',".$IdReq.",'".$_POST['precondicion']."','".$_POST['postcondicion']."','".$_POST['fin']."')";
 
 		if($res = $mysqli->query($consulta)){
 			header('Location:inicio.php?requerimiento=true');
@@ -78,7 +78,7 @@ if(isset($_SESSION['rol']))
 
 					include 'navBar.php';
 
-					//contenido nuevo proyecto
+					//contenido nueva Prueba
 
                     echo '<div class="container-fluid contenido">
                     <h1 class="text-center titulo"> Nueva Prueba Para ' . $_GET['req']. ' </h1>';
@@ -91,24 +91,41 @@ if(isset($_SESSION['rol']))
 											<input class="text-center" type="text" name="nombre" placeholder="Nombre de Prueba" required> <br>
 
 											<p class="text-center">Tipo de Prueba</p>
-											<input class="text-center"  type="text" name="tipo" placeholder="Tipo" required> <br>
-
+											<select style="width: 155px;" name ="tipo">
+												<option value="manual">Manual</option>
+												<option value="automatico">Automatico</option>
+												<option value="semi-automatico">Semi-automatico</option>
+											</select>
+											<br>
 											<p class="text-center">Entrada</p>
-                                            <input class="text-center"  type="text" name="entrada" placeholder="Entrada" required> <br>
+                                            <textarea name="entrada" style="width: 155px;resize: none;" required> </textarea>                                           
+											<br>
+											
+											<p class="text-center">Salida Esperada</p>
+                                            <textarea name="esperado" style="width: 155px;resize: none;" required> </textarea> 
                                             
-                                            <br>
                                             
-                                            <p class="text-center">Salida Esperada</p>
-                                            <input class="text-center" type="text" name="esperado" placeholder="Salida" required> <br>
+                                            <p class="text-center">Precondicion</p>
+                                            <textarea name="precondicion" style="width: 155px;resize: none;" required> </textarea> 
                                             
+											<br>
+
+											<p class="text-center">Postcondicion</p>
+                                            <textarea name="postcondicion" style="width: 155px;resize: none;" required> </textarea> 
+											
+											
+											<br>
+
+											<p class="text-center">Fecha de Fin</p>
+                                            <input type="date" name="fin" required> <br>
+											
 											<br>';
 
 											require './dbManager/connectdb.php';
 											$consulta = "SELECT * FROM usuario WHERE IdRol = 4 ";
 
-											echo '<p class="text-center">Developer Encargado</p>';
-
-											echo '<select name="developer">';
+											echo '<p class="text-center">Developer Encargado</p>
+												<select style="width: 155px;" name="developer">';
 
 											if($result = $mysqli->query($consulta)){
 
