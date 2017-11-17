@@ -83,14 +83,14 @@ if(isset($_SESSION['rol']))
                     if($result = $mysqli->query($consulta))
                     {
 
-                        echo '<table class="table">';
+                        echo '<table class="table"> <tr>';
                         echo '<th>Nombre</th>
                         <th>Modulo</th>
                         <th>Inicio</th>
                         <th>Prioridad</th>
 						<th>Estado</th>
 						<th>Asignado A</th>
-						<th>Caso Prueba</th>
+						<th>Caso Prueba</th></tr>
 						';
 
                         while($obj = $result->fetch_object()){

@@ -24,6 +24,7 @@ if(isset($_SESSION['rol']))
 		}
 
 		
+		
 		$consulta = "INSERT INTO prueba 
 		VALUES( '" .$_POST['nombre'] ."' , '". $_POST['developer'] ."' , '". $_POST['entrada']." '
 		, '" . $_POST['esperado'] . "' , '" . $_POST['tipo'] . "' ,NULL,NULL,NULL,'Sin Probar',".$IdReq.",'".$_POST['precondicion']."','".$_POST['postcondicion']."','".$_POST['fin']."')";

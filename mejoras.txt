@@ -1,0 +1,10 @@
+Agregado desde la ultima presentacion en base a lo solicitado durante la revision:
+Seccion de Perfil usuario - Funcion de Cambio de contraseña contraseña
+Tipo de Prueba corregido de campo de texto a Select con tipo manual / Automatico / Semi-automatico.
+
+
+
+Fecha estimativa de fin - requerimientos.
+Caso de Prueba : PRECONDICION Y POSTCONDICION
+doPrueba: cambiar resultado obtenido por Estados (Exitoso, Pausado, Fallido)
+Verificar cascada ( Caso prueba completos -> Exito Requerimiento -> Exito del proyecto )

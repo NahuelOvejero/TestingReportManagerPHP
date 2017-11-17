@@ -40,13 +40,17 @@ if(isset($_POST['enviar']))
     }
     $user = $_SESSION['id'];
     $cons="INSERT INTO requerimientos values(0,$id,$user,'$nombre','$modulo','$desc','$actor','$pre','$post','$trig','$fecha','$fin','$prioridad','$estado',$version);";
+
+    echo $cons . '<br>';
+    
     $mysqli->autocommit(true);
     if($mysqli->query($cons)){
         
         header('location:agregarRequerimiento.php?success=true');
     }
     else
-        header('location:agregarRequerimiento.php?success=false');
+    echo $mysqli->error;
+       // header('location:agregarRequerimiento.php?success=false');
 }
 else 
 
