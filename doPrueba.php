@@ -114,9 +114,15 @@ if(isset($_POST['enviar'])){
                                 
                                 <input type="text" name="esperado" value="'. $obj->esperado .'" readonly>
 
-                                <p class="text-center">Resultado Obtenido:</p>                               
+                                <p class="text-center">Resultado del Test:</p>                               
                                 
-                                <input type="text" name="resultado">
+                                <SELECT name="resultado">
+                                    <OPTION value="Exitoso">Exitoso</OPTION>
+                                    
+                                    <OPTION value="Fallido">Fallido</OPTION>
+                                    
+                                    <OPTION value="Pausado">Pausado</OPTION>
+                                </SELECT>
 
                                 <p class="text-center">Observaciones:</p>                               
                                 
