@@ -98,10 +98,12 @@ if(isset($_SESSION['developer']))
                         echo '<tr><th>Nombre</th>
                         <th>Entrada</th>
                         <th>Esperado</th>
-                        <th>Resultado</th>
+                        <th>Estado</th>
 						<th>Ultimo Test</th>
 						<th>Tipo</th>
 						<th>Obs.</th>
+						<th>Precondicion</th>
+						<th>Postcondicion</th>
 						<th>Prueba</th><tr>
 						';
 
@@ -116,10 +118,12 @@ if(isset($_SESSION['developer']))
                             <td>'. $obj->nombre .' </td>
                             <td>'. $obj->entrada .' </td>
                             <td>'. $obj->esperado .' </td>
-                            <td>'. $obj->resultado .' </td>
+                            <td>'. $obj->estado .' </td>
                             <td>'. $obj->ultimotest .' </td>
 							<td>'. $obj->tipo .' </td>
 							<td>'. $obj->observaciones .' </td>
+							<td>'. $obj->precondicion .' </td>
+							<td>'. $obj->postcondicion .'</td>
                             <td><a href="doPrueba.php?req='. $obj->nombre .'" ><button type="button" class="btn btn-warning">Ejecutar</button> </a></td>
 							</tr>                            
                             ';

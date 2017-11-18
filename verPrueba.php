@@ -70,7 +70,7 @@ if(isset($_SESSION['rol']))
                                                         <th>Nombre</th>
                                                         <th>entrada</th>
                                                         <th>esperado</th>                                               
-														<th>resultado</th>
+														<th>estado</th>
 														<th>tipo</th>
                                                         <th>observaciones</th>
                                                         <th>ultimo test </th>
@@ -84,7 +84,7 @@ if(isset($_SESSION['rol']))
                                                     echo '<td>'. $obj->nombre .'</td>'.
                                                         '<td>'. $obj->entrada .'</td>'.
 														'<td>'. $obj->esperado .'</td>'.
-														'<td>'. $obj->resultado .'</td>'. 
+														'<td>'. $obj->estado .'</td>'. 
                                                         '<td>'. $obj->tipo. '</td>'.
 														'<td>'. $obj->observaciones. '</td>'. 
 														'<td>'. $obj->ultimotest .'</td>'.

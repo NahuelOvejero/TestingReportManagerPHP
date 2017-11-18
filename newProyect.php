@@ -27,7 +27,7 @@ session_start();
 			$consulta = "INSERT INTO version VALUES(". $mysqli->insert_id . ",'$inicio','Activo',1,0)";
 			$mysqli->autocommit(true);
 				if($mysqli->query($consulta))
-					header('Location:nuevoProyecto.php?new=true');
+					header('Location:proyectoActual.php');
 				else
 					echo $mysqli->insert_id . '<br>' . $mysqli->error;
 		}

@@ -13,29 +13,59 @@ if(isset($_POST['enviar'])){
     require './dbManager/connectdb.php';
 
     $hoy =  date('y-m-d');
-    if($_POST['resultado'] == $_POST['esperado']){
+    if(isset($_POST['resultado'])){
      $consulta = "UPDATE prueba SET observaciones = '".
-                 $_POST['observaciones'] ."', resultado = '" . $_POST['resultado'] . "',ultimotest='".$hoy."',
-                 estado = 'Exitoso'
-                 WHERE nombre ='" . $_GET['req'] . "'";
+                 $_POST['observaciones'] ."', estado = '" . $_POST['resultado'] . "',ultimotest='".$hoy."' 
+                  WHERE nombre ='" . $_GET['req'] . "'";
                  
             if($mysqli->query($consulta)){
-                header('Location:mispruebas.php?result=true');
+
+                echo $consulta;
+
+                if($_POST['defectuoso'] == 'true'){
+                    if(isset($_POST['enviar'])){
+                            
+                                $getreq = "SELECT * FROM requerimientos WHERE nombre = '" .  $_GET['req'] . "'";
+                        
+                                $IdReq = 0;
+                        
+                                if($res = $mysqli->query($getreq)){
+                                    if($objetoId = $res->fetch_object()){
+                                        $IdReq = $objetoId->IdReq;
+                                    }
+                                    else{
+                                        echo $mysqli->error;
+                                    }
+                                }
+                                        
+                                $versionActual = 1;
+                                $v = $mysqli->query('SELECT version FROM version  ORDER BY IdProyecto DESC LIMIT 1');
+                                $objv = $v->fetch_object();
+                                $versionActual = $objv->version;                                
+
+                                $consultaDef = "INSERT INTO defecto 
+                                VALUES( '" .$_POST['nombre'] ."' , '". $_POST['descripcion'] ."' , 'NULL'
+                                ,". $versionActual  .");";
+
+                        
+                                if($res = $mysqli->query($consultaDef)){
+                                    header('Location:inicio.php?requerimiento=true');
+                                }
+                                else{
+                                    header('Location:inicio.php?requerimiento=false');
+                                }
+                        
+                        
+                            }
+                 }
+
+
+                header('Location:mispruebas.php?result=true');                
             }
             else{
                 echo $mysqli->error;
             }
         }
-    else{
-        $consulta = "UPDATE prueba SET resultado='Fallido' WHERE nombre ='". $_GET['req'] ."'";
-
-        $mysqli->query($consulta);
-        
-        header('Location:defecto.php?req='. $_GET['req'] );
-        
-        
-
-    }
 }
 
 
@@ -43,10 +73,36 @@ if(isset($_POST['enviar'])){
 
 <html>
 <head>
+
+
+<script>
+	function defecto(){
+		var selectBox = document.getElementById("estado");
+        var miDiv = document.getElementById("divDefecto");
+        var miDef = document.getElementById("defectuoso");
+        if(selectBox.value != 'Exitoso'){
+       
+            miDiv.style.display = 'block';           // Hide
+            miDef.value = 'true';            
+
+        }
+        else{
+            miDiv.style.display = 'none';          // Show
+            miDef.value = 'false';   
+        }
+
+		
+	}
+</script>
+
+
+
 <title>Bienvenido - Testing Tool</title>
 <meta charset="utf-8">
 <link rel="stylesheet" type="text/css" href="estilos/bootstrap.css">
 <link rel="stylesheet" type="text/css" href="estilos/main.css">
+
+
 </head>
 
 
@@ -116,8 +172,8 @@ if(isset($_POST['enviar'])){
 
                                 <p class="text-center">Resultado del Test:</p>                               
                                 
-                                <SELECT name="resultado">
-                                    <OPTION value="Exitoso">Exitoso</OPTION>
+                                <SELECT id="estado" name="resultado" onChange="defecto()" class="text-center" style="width: 378px;">
+                                    <OPTION  value="Exitoso">Exitoso</OPTION>
                                     
                                     <OPTION value="Fallido">Fallido</OPTION>
                                     
@@ -128,7 +184,23 @@ if(isset($_POST['enviar'])){
                                 
                                 <textarea name="observaciones"> </textarea> <br> <br>
 
-                                <input type="submit" value="Ejecutar" class="btn btn-warning" name="enviar"> <br>
+                                <div id="divDefecto" style="display:none;">
+
+                               
+                                <h1 class="text-center titulo"> Nueva Defecto De ' . $_GET['req']. ' </h1>
+                                <p class="text-center"    style="width: 378px;">Descripcion Del Defecto</p>
+                                <textarea style="width: 378px;" class="text-center" type="text" name="descripcion" placeholder="Descripcion" required> </textarea><br>
+                                
+                                <p class="text-center">Adjunto</p> <br>
+                                <input type="file" image name="adjunto" id="adjunto">
+
+                                <input type="hidden" name="defectuoso" id="defectuoso" value="false">
+                                <br>
+                                </div>
+                                
+
+
+                                <input type="submit" value="Guardar" class="btn btn-warning" name="enviar"> <br>
                                 
                                                 
                                 </form>';

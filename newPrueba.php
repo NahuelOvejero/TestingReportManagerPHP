@@ -23,11 +23,15 @@ if(isset($_SESSION['rol']))
 			}
 		}
 
+		$versionActual = 1;
+		$v = $mysqli->query('SELECT version FROM version  ORDER BY IdProyecto DESC LIMIT 1');
+		$objv = $v->fetch_object();
+		$versionActual = $objv->version;    
 		
 		
 		$consulta = "INSERT INTO prueba 
 		VALUES( '" .$_POST['nombre'] ."' , '". $_POST['developer'] ."' , '". $_POST['entrada']." '
-		, '" . $_POST['esperado'] . "' , '" . $_POST['tipo'] . "' ,NULL,NULL,NULL,'Sin Probar',".$IdReq.",'".$_POST['precondicion']."','".$_POST['postcondicion']."','".$_POST['fin']."')";
+		, '" . $_POST['esperado'] . "' , '" . $_POST['tipo'] . "' ,NULL,NULL,'Sin Probar',".$IdReq.",'".$_POST['precondicion']."','".$_POST['postcondicion']."','".$_POST['fin']."',".$versionActual.")";
 
 		if($res = $mysqli->query($consulta)){
 			header('Location:inicio.php?requerimiento=true');

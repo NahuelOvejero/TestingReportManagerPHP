@@ -9,7 +9,8 @@
 
 						if($_SESSION['rol'] == 'lider') echo '<a href="nuevoProyecto.php">Nuevo Proyecto</a>
   						  <a href="proyectoActual.php">Proyecto Actual</a>
-						   <a href="agregarPersonal.php">Agregar Personal</a>';
+						   <a href="agregarPersonal.php">Agregar Personal</a>
+						   <a href="newRelease.php">Release</a>';
 
 						   if($_SESSION['rol'] == 'requerimiento')
 									echo '

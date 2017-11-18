@@ -73,11 +73,16 @@ if(isset($_SESSION['rol']))
 											<strong	>Exito al asignar empleados al proyecto!
 											</div>';
 						  	}
+							  $IdProyectoAcutal = $obj->IdProyecto;
 
-       							echo '<h1 class="text-center titulo"> Proyecto Actual : '. $obj->nombre .' </h1>';
+							  $r = $mysqli->query('SELECT * from version WHERE IdProyecto = '. $IdProyectoAcutal .' order by version desc ');
+							  $o = $r->fetch_object();
+
+								   echo '<h1 class="text-center titulo"> Proyecto Actual : '. $obj->nombre .'</h1>' . 
+								   '<h1 class="text-center titulo"> Version : '. $o->version . '.' . $o->subversion . '</h1>';
        							$fechaFormat = date('d-m-y',strtotime($obj->entrega));
        							echo '<h1 class="text-center titulo"> Deadline : '. $fechaFormat .' </h1>';
-       							$IdProyectoAcutal = $obj->IdProyecto;
+       						
 
     						}		
 
